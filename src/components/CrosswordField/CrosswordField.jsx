@@ -8,9 +8,8 @@ export default function CrosswordField() {
 
     const field = Array(rows).fill(0);
 
-    // TODO: wrap into a table and try to collapse borders
-    return <div id="CrosswordField" style={{width: `${columns * COMPONENT_SIZE}px`, height: `${rows * COMPONENT_SIZE}px`}}>
-        <table>
+    return (
+        <table id="CrosswordField" style={{width: `${columns * COMPONENT_SIZE}px`, height: `${rows * COMPONENT_SIZE}px`}}>
             <tbody>
             {
                 field.map((row, rowNumber) => (
@@ -29,5 +28,5 @@ export default function CrosswordField() {
             }
             </tbody>
         </table>
-    </div>
+    );
 }
