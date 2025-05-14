@@ -8,7 +8,6 @@ export default function CrosswordField() {
 
     const field = Array(rows).fill(0);
 
-    // width and height are magic numbers for now
     return <div id="CrosswordField" style={{width: `${columns * COMPONENT_SIZE}px`, height: `${rows * COMPONENT_SIZE}px`}}>
         {
             field.map((row, rowNumber) => (
