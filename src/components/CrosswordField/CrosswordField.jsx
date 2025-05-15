@@ -16,7 +16,7 @@ export default function CrosswordField() {
                     <tr key={`row${rowNumber}`}>
                     {
                         Array(columns).fill(0).map((column, columnNumber) => (
-                            <td key={`x${columnNumber}y${rowNumber}`}>
+                            <td key={`x${columnNumber}y${rowNumber}`} className={!!((rowNumber + columnNumber) % 2) ? "emptyCell" : ""}>
                                 {
                                     <LetterBox x={columnNumber} y={rowNumber}></LetterBox>
                                 }

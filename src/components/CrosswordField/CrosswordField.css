@@ -5,3 +5,8 @@ table {
 td {
     border: 1px solid black;   
 }
+
+.emptyCell {
+    visibility: hidden;
+    border: none;
+}
