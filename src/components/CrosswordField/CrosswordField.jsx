@@ -1,5 +1,5 @@
 import "./CrosswordField.css"
-import { LetterBox } from "../LetterBox/LetterBox";
+import { CrosswordCell } from "../CrosswordCell/CrosswordCell";
 import crossword from "../../assets/crosswords";
 
 export default function CrosswordField() {
@@ -20,7 +20,7 @@ export default function CrosswordField() {
                         row.map((column, columnNumber) => (
                             <td key={`x${columnNumber}y${rowNumber}`} className={!(crossword[rowNumber][columnNumber]) ? "emptyCell" : ""}>
                                 {
-                                    <LetterBox x={columnNumber} y={rowNumber} letter={crossword[rowNumber][columnNumber]}></LetterBox>
+                                    <CrosswordCell x={columnNumber} y={rowNumber} letter={crossword[rowNumber][columnNumber]}></CrosswordCell>
                                     
                                 }
                             </td>
