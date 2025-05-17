@@ -20,7 +20,7 @@ export default function CrosswordField() {
                         row.map((column, columnNumber) => (
                             <td key={`x${columnNumber}y${rowNumber}`} className={!(crossword[rowNumber][columnNumber]) ? "emptyCell" : ""}>
                                 {
-                                    <CrosswordCell x={columnNumber} y={rowNumber} letter={crossword[rowNumber][columnNumber]}></CrosswordCell>
+                                    <CrosswordCell x={columnNumber} y={rowNumber} number={crossword[rowNumber][columnNumber][0]} letter={crossword[rowNumber][columnNumber][1]}></CrosswordCell>
                                     
                                 }
                             </td>
