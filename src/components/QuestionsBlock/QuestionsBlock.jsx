@@ -1,6 +1,6 @@
 import crossword from "../../assets/crosswords"
 
-export default function QuestionsBlock({direction}) {
+export function QuestionsBlock({direction}) {
     return <div>
         <h1>{direction === "right" ? "Accross" : "Down"}</h1>
         <div>

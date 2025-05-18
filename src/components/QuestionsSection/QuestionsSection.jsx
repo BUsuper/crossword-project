@@ -1,6 +1,6 @@
-import QuestionsBlock from "../../components"
+import { QuestionsBlock } from "../../components"
 
-export default function QuestionsSection() {
+export function QuestionsSection() {
     return <div>
         <QuestionsBlock direction="right"></QuestionsBlock>
         <QuestionsBlock direction="down"></QuestionsBlock>

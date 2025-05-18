@@ -1,9 +1,10 @@
-import { CrosswordField } from "../components";
+import { CrosswordField, QuestionsSection } from "../components";
 import "./App.css";
 
 function App() {
   return <>
     <CrosswordField></CrosswordField>
+    <QuestionsSection></QuestionsSection>
   </>
 }
 
