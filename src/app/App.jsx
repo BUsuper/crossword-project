@@ -1,4 +1,4 @@
-import CrosswordField from "../components/CrosswordField/CrosswordField";
+import { CrosswordField } from "../components";
 import "./App.css";
 
 function App() {

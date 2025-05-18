@@ -1,8 +1,8 @@
 import "./CrosswordField.css"
-import { CrosswordCell } from "../CrosswordCell/CrosswordCell";
+import { CrosswordCell } from "../../components";
 import crossword from "../../assets/crosswords";
 
-export default function CrosswordField() {
+export function CrosswordField() {
     // Get height(rows) and width(columns) of the crossword object
     const columns = Object.keys(crossword[0]).length;
     const rows = Object.keys(crossword).length;
