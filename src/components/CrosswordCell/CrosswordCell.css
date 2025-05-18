@@ -4,22 +4,24 @@
 }
 
 .upperRow {
+    font-size: 8px;
     display: flex;
     align-items: center;
     height: 10px;
 }
 
 .numberContainter {
-    font-size: 12px;
     height: 10px;
     width: 10px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
 }
 
 .rightArrowContainer {
     height: 10px;
     width: 40px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
 }
 
 .bottomRow {
@@ -29,14 +31,16 @@
 }
 
 .downArrowContainer {
+    font-size: 8px;
     height: 40px;
     width: 10px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .letterContainer {
     font-size: 16px;
     height: 30px;
     width: 30px;
-    display: inline-block;
 }
