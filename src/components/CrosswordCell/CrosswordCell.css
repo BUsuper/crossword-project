@@ -2,3 +2,41 @@
     width: 50px;
     height: 50px;
 }
+
+.upperRow {
+    display: flex;
+    align-items: center;
+    height: 10px;
+}
+
+.numberContainter {
+    font-size: 12px;
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+}
+
+.rightArrowContainer {
+    height: 10px;
+    width: 40px;
+    display: inline-block;
+}
+
+.bottomRow {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.downArrowContainer {
+    height: 40px;
+    width: 10px;
+    display: inline-block;
+}
+
+.letterContainer {
+    font-size: 16px;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+}
