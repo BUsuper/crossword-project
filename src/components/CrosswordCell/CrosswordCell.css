@@ -40,7 +40,9 @@
 }
 
 .letterContainer {
-    font-size: 16px;
+    font-size: 28px;
     height: 30px;
     width: 30px;
+    border: none;
+    text-align: center;
 }

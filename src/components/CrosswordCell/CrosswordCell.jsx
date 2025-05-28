@@ -14,9 +14,7 @@ export function CrosswordCell({x, y, letter, number, direction}) {
             <span className="downArrowContainer">
                 {direction === "down" ? "↓" : ""}
             </span>
-            <span className="letterContainer">
-                {letter}
-            </span>
+                <input type="text" id={`letter(${y},${x})`} className="letterContainer" maxLength={1}></input>
         </div>
     </div>
 }
