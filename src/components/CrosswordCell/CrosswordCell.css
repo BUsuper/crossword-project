@@ -46,3 +46,11 @@
     border: none;
     text-align: center;
 }
+
+.wrongLetter {
+    color: red;
+}
+
+.correctLetter {
+    color: green;
+}
