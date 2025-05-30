@@ -47,6 +47,11 @@
     text-align: center;
 }
 
+.letterContainer:disabled {
+    background-color: white;
+    cursor: not-allowed;
+}
+
 .wrongLetter {
     color: red;
 }

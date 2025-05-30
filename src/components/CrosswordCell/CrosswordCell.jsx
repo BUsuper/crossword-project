@@ -43,6 +43,7 @@ export function CrosswordCell({x, y, letter, number, direction}) {
                         }
                     maxLength={1}
                     onChange={handleInputChange}
+                    disabled={isChecking && "true"}
                 >
                 </input>
             </div>
