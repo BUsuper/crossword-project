@@ -1,4 +1,5 @@
-import configureStore from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import statucesReducer from "../slices/statusesSlice";
 
 const store = configureStore({
     reducer: {
