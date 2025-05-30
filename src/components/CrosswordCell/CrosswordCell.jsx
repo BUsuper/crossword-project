@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectIsChecking } from "../../slices/statusesSelectors";
 import { useState } from "react";
 
-// Letter is the answer, userLetter is what user types in
+// letter is the answer, userLetter is what user types in
 export function CrosswordCell({x, y, letter, number, direction}) {
     // isChecking is triggered globally by a check button
     const isChecking = useSelector(selectIsChecking);
@@ -43,7 +43,7 @@ export function CrosswordCell({x, y, letter, number, direction}) {
                         }
                     maxLength={1}
                     onChange={handleInputChange}
-                    disabled={isChecking && "true"}
+                    disabled={isChecking}
                 >
                 </input>
             </div>
