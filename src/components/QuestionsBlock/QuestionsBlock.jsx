@@ -2,7 +2,7 @@ import crossword from "../../assets/crosswords"
 
 export function QuestionsBlock({direction}) {
     return <div>
-        <h1>{direction === "right" ? "Accross" : "Down"}</h1>
+        <h1>{direction === "right" ? "Across" : "Down"}</h1>
         <div>
             {crossword.map(row =>
                 row.map(cell => {
