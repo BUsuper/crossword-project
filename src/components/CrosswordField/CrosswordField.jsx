@@ -8,8 +8,11 @@ export function CrosswordField() {
     const rows = Object.keys(crossword).length;
     const COMPONENT_SIZE = 50;
 
-    const field = Array(rows).fill(0);
+    // This will be incremented only by visible crossword cells
+    // It allows to pass a correct tab index starting with 1 to them
+    let tabCounter = 0;
 
+    // Crossword cells are only rendered in non-empty table cells
     return (
         <table id="CrosswordField" style={{width: `${columns * COMPONENT_SIZE}px`, height: `${rows * COMPONENT_SIZE}px`}}>
             <tbody>
@@ -23,14 +26,17 @@ export function CrosswordField() {
                                 className={!(crossword[rowNumber][columnNumber]) ? "emptyCell" : ""}
                             >
                                 {
-                                    <CrosswordCell
-                                        x={columnNumber}
-                                        y={rowNumber}
-                                        direction={crossword[rowNumber][columnNumber][1]}
-                                        number={crossword[rowNumber][columnNumber][2]}
-                                        letter={crossword[rowNumber][columnNumber][3]}
-                                    >
-                                    </CrosswordCell>
+                                    (crossword[rowNumber][columnNumber]) ?
+                                        <CrosswordCell
+                                            x={columnNumber}
+                                            y={rowNumber}
+                                            direction={crossword[rowNumber][columnNumber][1]}
+                                            number={crossword[rowNumber][columnNumber][2]}
+                                            letter={crossword[rowNumber][columnNumber][3]}
+                                            tabIndex={++tabCounter}
+                                        >
+                                        </CrosswordCell>
+                                    : ""
                                 }
                             </td>
                         ))
