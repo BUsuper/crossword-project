@@ -1,7 +1,7 @@
 import "./CrosswordCell.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsChecking } from "../../slices/statusesSelectors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setHasErrors } from "../../slices/statusesSlice";
 
 // letter is the answer, userLetter is what user types in
@@ -34,8 +34,12 @@ export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
     // accordingly to change the color of the letter
     const isCorrectLetter = userLetter === letter;
 
+    // If the letter is wrong and the checking mode is on, dispatch the action
+    // useEffect ensures that it's done when isChecking changes, not during the render (that would cause an error)
     // If at least one letter triggers hasErrors (because it's not correct), you can't win
-    if (isChecking && !isCorrectLetter) dispatch(setHasErrors(true));
+    useEffect(() => {
+        if (isChecking && !isCorrectLetter) dispatch(setHasErrors(true));
+    }, [isChecking, isCorrectLetter, dispatch]);
 
     // tabIndex starts at 1, so it can be used as next index in the list of Crossword Cells
     // that is 0-indexed
