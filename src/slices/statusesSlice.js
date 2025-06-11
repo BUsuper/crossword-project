@@ -5,6 +5,7 @@ const statusesSlice = createSlice({
     initialState: {
         isChecking: false,
         isFinished: false,
+        hasErrors: false,
     },
     reducers: {
         setIsChecking: (state, action) => {
@@ -13,10 +14,14 @@ const statusesSlice = createSlice({
         
         setIsFinished: (state, action) => {
             state.isFinished = action.payload;
+        },
+
+        setHasErrors: (state, action) => {
+            state.hasErrors = action.payload;
         }
     }
 });
 
-export const { setIsChecking, setIsFinished } = statusesSlice.actions;
+export const { setIsChecking, setIsFinished, setHasErrors } = statusesSlice.actions;
 
 export default statusesSlice.reducer;

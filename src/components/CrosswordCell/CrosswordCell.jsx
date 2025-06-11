@@ -1,13 +1,16 @@
 import "./CrosswordCell.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectIsChecking } from "../../slices/statusesSelectors";
 import { useState } from "react";
+import { setHasErrors } from "../../slices/statusesSlice";
 
 // letter is the answer, userLetter is what user types in
 export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
     // isChecking is triggered globally by a check button
     const isChecking = useSelector(selectIsChecking);
     const [userLetter, setUserLetter] = useState("");
+
+    const dispatch = useDispatch();
 
     const handleInputChange = (e, nextIndex) => {
         const userInput = e.target.value;
@@ -22,12 +25,17 @@ export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
         if (userInput.length > 0 && letterContainersList.length > nextIndex) {
             letterContainersList[nextIndex].focus();
         }
+
+        // TODO: add moving to the previous cell if it exists and backspace is pressed in an empty cell
     }
 
     // This is used when letter is rendered and checking mode is active to determine
     // if the user's input is a correct answer and determine the input tag class
     // accordingly to change the color of the letter
     const isCorrectLetter = userLetter === letter;
+
+    // If at least one letter triggers hasErrors (because it's not correct), you can't win
+    if (isChecking && !isCorrectLetter) dispatch(setHasErrors(true));
 
     // tabIndex starts at 1, so it can be used as next index in the list of Crossword Cells
     // that is 0-indexed
@@ -48,9 +56,9 @@ export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
                 <input
                     type="text" 
                     id={`letter(${y},${x})`} 
-                    className={"letterContainer" + 
+                    className={"letterContainer" + " " +
                         `${isChecking ?
-                            isCorrectLetter ? " correctLetter" : " wrongLetter" :
+                            isCorrectLetter ? "correctLetter" : "wrongLetter" :
                             ""
                         }`
                         }
