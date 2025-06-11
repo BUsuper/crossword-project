@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import "./EndgameModal.css";
+import { selectHasErrors } from "../../slices/statusesSelectors";
 
 export function EndgameModal() {
+    const hasErrors = useSelector(selectHasErrors);
+
     return (
         <div id="EndgameModal">
             <div className="modalUpperRow">
