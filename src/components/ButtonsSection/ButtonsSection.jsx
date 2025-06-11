@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setIsChecking, setIsFinished } from "../../slices/statusesSlice";
+import { setHasErrors, setIsChecking, setIsFinished } from "../../slices/statusesSlice";
 import { selectIsChecking, selectIsFinished } from "../../slices/statusesSelectors";
 
 export function ButtonsSection() {
@@ -9,10 +9,12 @@ export function ButtonsSection() {
 
     // Toggles checking mode
     const toggleCheck = () => {
+        dispatch(setHasErrors(false));
         dispatch(setIsChecking(!isChecking));
     }
 
     const finishCrossword = () => {
+        dispatch(setHasErrors(false));
         dispatch(setIsChecking(true));
         dispatch(setIsFinished(true));
     }
