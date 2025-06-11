@@ -3,7 +3,7 @@ import "./EndgameModal.css";
 import { selectHasErrors } from "../../slices/statusesSelectors";
 
 export function EndgameModal() {
-    const hasErrors = useSelector(selectHasErrors);
+    const hasErrors = useSelector(selectHasErrors)
 
     return (
         <div id="EndgameModal">
@@ -14,7 +14,7 @@ export function EndgameModal() {
                 Congratulations! You've finished the crossword in 999 seconds
             </div>
             <div className="modalBottomRow">
-                { hasErrors ? <input type="button">Show answers</input> : "" }
+                { hasErrors ? <input type="button" value="Show answers"></input> : "" }
             </div>
         </div>
     )
