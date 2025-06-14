@@ -1,17 +1,17 @@
 import { useSelector } from "react-redux";
 import { ButtonsSection, CrosswordField, EndgameModal, QuestionsSection } from "../components";
 import "./App.css";
-import { selectIsFinished } from "../slices/statusesSelectors";
+import { selectIsEndgameModalOpen } from "../slices/statusesSelectors";
 
 function App() {
-  const isFinished = useSelector(selectIsFinished);
+  const isEndgameModalOpen = useSelector(selectIsEndgameModalOpen);
 
   return (
     <>
       <CrosswordField></CrosswordField>
       <ButtonsSection></ButtonsSection>
       <QuestionsSection></QuestionsSection>
-      {isFinished && <EndgameModal></EndgameModal>}
+      {isEndgameModalOpen && <EndgameModal></EndgameModal>}
     </>
 )}
 

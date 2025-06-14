@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setHasErrors, setIsChecking, setIsFinished } from "../../slices/statusesSlice";
+import { setHasErrors, setIsChecking, setIsEndgameModalOpen, setIsFinished } from "../../slices/statusesSlice";
 import { selectIsChecking, selectIsFinished } from "../../slices/statusesSelectors";
 
 export function ButtonsSection() {
@@ -17,6 +17,7 @@ export function ButtonsSection() {
         dispatch(setHasErrors(false));
         dispatch(setIsChecking(true));
         dispatch(setIsFinished(true));
+        dispatch(setIsEndgameModalOpen(true));
     }
 
     // It says "Change answers" because editing is disabled (in CrosswordCell) in checking mode
