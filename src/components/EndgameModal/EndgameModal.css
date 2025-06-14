@@ -15,3 +15,8 @@
     align-items: end;
     padding: 5px;
 }
+
+#closeEndgameModalButton {
+    width: 20px;
+    height: 20px;
+}
