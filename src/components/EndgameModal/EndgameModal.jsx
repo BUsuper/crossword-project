@@ -3,7 +3,7 @@ import "./EndgameModal.css";
 import { selectHasErrors } from "../../slices/statusesSelectors";
 
 export function EndgameModal() {
-    const hasErrors = useSelector(selectHasErrors)
+    const hasErrors = useSelector(selectHasErrors);
 
     return (
         <div id="EndgameModal">
