@@ -26,9 +26,18 @@ const statusesSlice = createSlice({
         setIsEndgameModalOpen: (state, action) => {
             state.isEndgameModalOpen = action.payload;
         },
+
+        setIsShowingAnswers: (state, action) => {
+            state.isShowingAnswers = action.payload;
+        },
     }
 });
 
-export const { setIsChecking, setIsFinished, setHasErrors, setIsEndgameModalOpen } = statusesSlice.actions;
+export const { setIsChecking,
+               setIsFinished, 
+               setHasErrors, 
+               setIsEndgameModalOpen, 
+               setIsShowingAnswers
+            } = statusesSlice.actions;
 
 export default statusesSlice.reducer;
