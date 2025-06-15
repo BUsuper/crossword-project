@@ -1,6 +1,6 @@
 import "./CrosswordCell.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsChecking } from "../../slices/statusesSelectors";
+import { selectIsChecking, selectIsShowingAnswers } from "../../slices/statusesSelectors";
 import { useEffect, useState } from "react";
 import { setHasErrors } from "../../slices/statusesSlice";
 
@@ -8,6 +8,7 @@ import { setHasErrors } from "../../slices/statusesSlice";
 export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
     // isChecking is triggered globally by a check button
     const isChecking = useSelector(selectIsChecking);
+    const isShowingAnswers = useSelector(selectIsShowingAnswers);
     const [userLetter, setUserLetter] = useState("");
 
     const dispatch = useDispatch();
@@ -71,6 +72,7 @@ export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
                     disabled={isChecking}
                     autoComplete="off"
                     tabIndex={tabIndex}
+                    value={ isShowingAnswers ? letter : userLetter}
                 >
                 </input>
             </div>
