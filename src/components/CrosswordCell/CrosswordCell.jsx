@@ -3,14 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsChecking, selectIsShowingAnswers } from "../../slices/statusesSelectors";
 import { useEffect, useState } from "react";
 import { setHasErrors } from "../../slices/statusesSlice";
+import { selectIsVerticalSelection, selectSelectedCell } from "../../slices/selectedSelectors";
+import { setIsVerticalSelection, setSelectedCell } from "../../slices/selectedSlice";
 
 export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}) {
     // isChecking is triggered globally by a check button
     const isChecking = useSelector(selectIsChecking);
     const isShowingAnswers = useSelector(selectIsShowingAnswers);
+    const selectedCell = useSelector(selectSelectedCell);
+    const isVerticalSelection = useSelector(selectIsVerticalSelection);
     const [userLetter, setUserLetter] = useState("");
 
     const dispatch = useDispatch();
+
+    const id = `letter(${y},${x})`;
+
+    const isCurrentlySelected = selectedCell === id;
 
     const handleInputChange = (e, nextIndex) => {
         const userInput = e.target.value;
@@ -27,6 +35,14 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
         }
 
         // TODO: add moving to the previous cell if it exists and backspace is pressed in an empty cell
+    }
+
+    const handleClick = (currentCellId, isCurrentlySelected) => {
+        if (isCurrentlySelected) {
+            dispatch(setIsVerticalSelection(!isVerticalSelection));
+        } else {
+            dispatch(setSelectedCell(currentCellId))
+        }
     }
 
     // This is used when letter is rendered and checking mode is active to determine
@@ -59,7 +75,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
                 </span>
                 <input
                     type="text" 
-                    id={`letter(${y},${x})`} 
+                    id={id} 
                     className={"letterContainer" + " " +
                         `${isChecking ?
                             isCorrectLetter ? "correctLetter" : "wrongLetter" :
@@ -68,6 +84,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
                         }
                     maxLength={1}
                     onChange={(e) => handleInputChange(e, tabIndex)}
+                    onClick={() => handleClick(id, isCurrentlySelected)}
                     disabled={isChecking}
                     autoComplete="off"
                     tabIndex={tabIndex}
