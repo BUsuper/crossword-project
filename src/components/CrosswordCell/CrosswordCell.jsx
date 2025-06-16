@@ -6,7 +6,7 @@ import { setHasErrors } from "../../slices/statusesSlice";
 import { selectIsVerticalSelection, selectSelectedCell } from "../../slices/selectedSelectors";
 import { setIsVerticalSelection, setSelectedCell } from "../../slices/selectedSlice";
 
-export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}) {
+export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelectionList, tabIndex}) {
     const isChecking = useSelector(selectIsChecking);
     const isShowingAnswers = useSelector(selectIsShowingAnswers);
     const selectedCell = useSelector(selectSelectedCell);
@@ -15,9 +15,9 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
 
     const dispatch = useDispatch();
 
-    const id = `letter(${y},${x})`;
+    const inputId = `${y}:${x}`;
 
-    const isCurrentlySelected = selectedCell === id;
+    const isCurrentlySelected = selectedCell === inputId;
 
     const handleInputChange = (e, nextIndex) => {
         const userInput = e.target.value;
@@ -60,7 +60,10 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
     // tabIndex starts at 1, so it can be used as next index in the list of Crossword Cells
     // that is 0-indexed
     return (
-        <div className="CrosswordCell" id={`CrosswordCell(${y},${x})`}>
+        <div 
+            id={`CrosswordCell${y},${x}`}
+            className={"CrosswordCell" + " " + `${isInSelectionList ? "selectedList" : ""}`}
+        >
             <div className="upperRow">
                 <span className="numberContainter">
                     {number}
@@ -75,7 +78,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
                 </span>
                 <input
                     type="text" 
-                    id={id} 
+                    id={inputId} 
                     className={"letterContainer" + " " +
                         `${isChecking ?
                             isCorrectLetter ? "correctLetter" : "wrongLetter" :
@@ -84,7 +87,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
                         }
                     maxLength={1}
                     onChange={(e) => handleInputChange(e, tabIndex)}
-                    onClick={() => handleClick(id, isCurrentlySelected)}
+                    onClick={() => handleClick(inputId, isCurrentlySelected)}
                     disabled={isChecking}
                     autoComplete="off"
                     tabIndex={tabIndex}
