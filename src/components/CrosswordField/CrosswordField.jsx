@@ -1,5 +1,7 @@
 import "./CrosswordField.css"
 import { CrosswordCell } from "../../components";
+import { useSelector } from "react-redux";
+import { selectSelectedCell, selectIsVerticalSelection } from "../../slices/selectedSelectors";
 import crossword from "../../assets/crosswords";
 
 export function CrosswordField() {
@@ -8,9 +10,25 @@ export function CrosswordField() {
     const rows = Object.keys(crossword).length;
     const COMPONENT_SIZE = 50;
 
+    const [ selectedCellY, selectedCellX ] = useSelector(selectSelectedCell).split(":");
+    const isVerticalSelection = useSelector(selectIsVerticalSelection);
+
     // This will be incremented only by visible crossword cells
     // It allows to pass a correct tab index starting with 1 to them
     let tabCounter = 0;
+
+    const filterSelectionList = (cellId) => {
+        if (isVerticalSelection) {
+            return cellId.startsWith(`CrosswordCell${selectedCellY}`)
+        }
+        return cellId.endsWith(`${selectedCellX}`)
+    }
+
+    // A list of ids of all cells that should be highlighted as parts of selected row/column
+    const cellsInSelectionList = Array.from(document
+        .getElementsByClassName("CrosswordCell"))
+        .map(cell => cell.id)
+        .filter(filterSelectionList);
 
     // Crossword cells are only rendered in non-empty table cells
     return (
@@ -32,7 +50,8 @@ export function CrosswordField() {
                                             y={rowNumber}
                                             direction={crossword[rowNumber][columnNumber][1]}
                                             number={crossword[rowNumber][columnNumber][2]}
-                                            letter={crossword[rowNumber][columnNumber][3]}
+                                            correctAnswer={crossword[rowNumber][columnNumber][3]}
+                                            isInSelectionList={cellsInSelectionList.includes(`CrosswordCell${rowNumber},${columnNumber}`)}
                                             tabIndex={++tabCounter}
                                         >
                                         </CrosswordCell>
