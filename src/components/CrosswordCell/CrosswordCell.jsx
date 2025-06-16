@@ -4,8 +4,7 @@ import { selectIsChecking, selectIsShowingAnswers } from "../../slices/statusesS
 import { useEffect, useState } from "react";
 import { setHasErrors } from "../../slices/statusesSlice";
 
-// letter is the answer, userLetter is what user types in
-export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
+export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}) {
     // isChecking is triggered globally by a check button
     const isChecking = useSelector(selectIsChecking);
     const isShowingAnswers = useSelector(selectIsShowingAnswers);
@@ -33,7 +32,7 @@ export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
     // This is used when letter is rendered and checking mode is active to determine
     // if the user's input is a correct answer and determine the input tag class
     // accordingly to change the color of the letter
-    const isCorrectLetter = userLetter === letter;
+    const isCorrectLetter = userLetter === correctAnswer;
 
     // If the letter is wrong and the checking mode is on, dispatch the action
     // useEffect ensures that it's done when isChecking changes, not during the render (that would cause an error)
@@ -72,7 +71,7 @@ export function CrosswordCell({x, y, letter, number, direction, tabIndex}) {
                     disabled={isChecking}
                     autoComplete="off"
                     tabIndex={tabIndex}
-                    value={ isShowingAnswers ? letter : userLetter}
+                    value={ isShowingAnswers ? correctAnswer : userLetter}
                 >
                 </input>
             </div>
