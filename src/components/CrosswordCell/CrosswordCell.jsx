@@ -7,7 +7,6 @@ import { selectIsVerticalSelection, selectSelectedCell } from "../../slices/sele
 import { setIsVerticalSelection, setSelectedCell } from "../../slices/selectedSlice";
 
 export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}) {
-    // isChecking is triggered globally by a check button
     const isChecking = useSelector(selectIsChecking);
     const isShowingAnswers = useSelector(selectIsShowingAnswers);
     const selectedCell = useSelector(selectSelectedCell);
@@ -37,6 +36,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, tabIndex}
         // TODO: add moving to the previous cell if it exists and backspace is pressed in an empty cell
     }
 
+    // Make selection direction change if the same cell is clicked twice
     const handleClick = (currentCellId, isCurrentlySelected) => {
         if (isCurrentlySelected) {
             dispatch(setIsVerticalSelection(!isVerticalSelection));
