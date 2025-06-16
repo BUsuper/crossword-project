@@ -62,7 +62,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
     return (
         <div 
             id={`CrosswordCell${y},${x}`}
-            className={"CrosswordCell" + " " + `${isInSelectionList ? "selectedList" : ""}`}
+            className={"CrosswordCell" + " " + `${isInSelectionList ? "inSelectedList" : ""}`}
         >
             <div className="upperRow">
                 <span className="numberContainter">
@@ -83,7 +83,8 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                         `${isChecking ?
                             isCorrectLetter ? "correctLetter" : "wrongLetter" :
                             ""
-                        }`
+                        }` + " " + 
+                        `${isInSelectionList ? "inSelectedList" : ""}`
                         }
                     maxLength={1}
                     onChange={(e) => handleInputChange(e, tabIndex)}
