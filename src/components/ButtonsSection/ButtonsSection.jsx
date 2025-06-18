@@ -14,7 +14,6 @@ export function ButtonsSection() {
     }
 
     const finishCrossword = () => {
-        dispatch(setHasErrors(false));
         dispatch(setIsChecking(true));
         dispatch(setIsFinished(true));
         dispatch(setIsEndgameModalOpen(true));
