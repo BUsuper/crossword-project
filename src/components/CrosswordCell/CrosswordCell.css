@@ -3,10 +3,6 @@
     height: 50px;
 }
 
-.inSelectedList {
-    background-color: #e6f7ff;
-}
-
 .upperRow {
     font-size: 8px;
     display: flex;
@@ -62,4 +58,8 @@
 
 .correctLetter {
     color: green;
+}
+
+.inSelectedList, .inSelectedList:disabled {
+    background-color: #e6f7ff;
 }
