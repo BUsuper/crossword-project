@@ -30,6 +30,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
         // by comparing its length and the next index
         // Checks if there is new input so the focus doesn't jump when a letter is deleted
         if (userInput.length > 0 && letterContainersList.length > nextIndex) {
+            dispatch(setSelectedCell(letterContainersList[nextIndex].id));
             letterContainersList[nextIndex].focus();
         }
 
