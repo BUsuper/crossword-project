@@ -17,18 +17,20 @@ export function CrosswordField() {
     // It allows to pass a correct tab index starting with 1 to them
     let tabCounter = 0;
 
-    const filterSelectionList = (cellId) => {
+    const filterDirection = (cellId) => {
+        const ShortenedId = cellId.slice(13).split(",");
+
         if (isVerticalSelection) {
-            return cellId.startsWith(`CrosswordCell${selectedCellY}`)
+            return ShortenedId[0] === selectedCellY;
         }
-        return cellId.endsWith(`${selectedCellX}`)
+        return ShortenedId[1] === selectedCellX;
     }
 
     // A list of ids of all cells that should be highlighted as parts of selected row/column
     const cellsInSelectionList = Array.from(document
         .getElementsByClassName("CrosswordCell"))
         .map(cell => cell.id)
-        .filter(filterSelectionList);
+        .filter(filterDirection);
 
     // Crossword cells are only rendered in non-empty table cells
     return (
