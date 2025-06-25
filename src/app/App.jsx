@@ -1,10 +1,18 @@
-import CrosswordField from "../components/CrosswordField/CrosswordField";
+import { useSelector } from "react-redux";
+import { ButtonsSection, CrosswordField, EndgameModal, QuestionsSection } from "../components";
 import "./App.css";
+import { selectIsEndgameModalOpen } from "../slices/statusesSelectors";
 
 function App() {
-  return <>
-    <CrosswordField></CrosswordField>
-  </>
-}
+  const isEndgameModalOpen = useSelector(selectIsEndgameModalOpen);
+
+  return (
+    <>
+      <CrosswordField></CrosswordField>
+      <ButtonsSection></ButtonsSection>
+      <QuestionsSection></QuestionsSection>
+      {isEndgameModalOpen && <EndgameModal></EndgameModal>}
+    </>
+)}
 
 export default App

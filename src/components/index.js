@@ -1,2 +1,6 @@
 export { CrosswordField } from "./CrosswordField/CrosswordField";
-export { LetterBox } from "./LetterBox/LetterBox";
+export { CrosswordCell } from "./CrosswordCell/CrosswordCell";
+export { QuestionsSection } from "./QuestionsSection/QuestionsSection";
+export { QuestionsBlock } from "./QuestionsBlock/QuestionsBlock";
+export { ButtonsSection } from "./ButtonsSection/ButtonsSection";
+export { EndgameModal } from "./EndgameModal/EndgameModal";
