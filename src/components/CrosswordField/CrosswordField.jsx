@@ -17,13 +17,15 @@ export function CrosswordField() {
     // It allows to pass a correct tab index starting with 1 to them
     let tabCounter = 0;
 
-    const filterDirection = (cellId) => {
-        const ShortenedId = cellId.slice(13).split(",");
+    const shortenId = cellId => cellId.slice(13).split(",");
+
+    const filterDirection = cellId => {
+        const shortenedId = shortenId(cellId);
 
         if (isVerticalSelection) {
-            return ShortenedId[0] === selectedCellY;
+            return shortenedId[0] === selectedCellY;
         }
-        return ShortenedId[1] === selectedCellX;
+        return shortenedId[1] === selectedCellX;
     }
 
     // A list of ids of all cells that should be highlighted as parts of selected row/column
