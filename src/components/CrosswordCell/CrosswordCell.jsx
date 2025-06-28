@@ -40,6 +40,10 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                     dispatch(setSelectedCell(nextCellId));
                     nextCell.focus();
                     break;
+                } else {
+                    if (++currentIndex < (iterationOrder.length - 1)) {
+                        continue;
+                    }
                 }
             } else {
                 break;
