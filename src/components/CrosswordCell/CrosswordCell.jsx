@@ -5,12 +5,15 @@ import { useEffect, useState } from "react";
 import { setHasErrors } from "../../slices/statusesSlice";
 import { selectIsVerticalSelection, selectSelectedCell } from "../../slices/selectedSelectors";
 import { setIsVerticalSelection, setSelectedCell } from "../../slices/selectedSlice";
+import { selectHorizontalIterationOrder, selectVerticalIterationOrder } from "../../slices/crosswordSelectors";
 
 export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelectionList, iterationOrder, tabIndex}) {
     const isChecking = useSelector(selectIsChecking);
     const isShowingAnswers = useSelector(selectIsShowingAnswers);
     const selectedCell = useSelector(selectSelectedCell);
     const isVerticalSelection = useSelector(selectIsVerticalSelection);
+    const verticalIterationOrder = useSelector(selectVerticalIterationOrder);
+    const horizontalIterationOrder = useSelector(selectHorizontalIterationOrder);
     const [userLetter, setUserLetter] = useState("");
 
     const dispatch = useDispatch();
@@ -44,9 +47,10 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
         }
     }
 
-    const handleInputChange = (e, id, iterationOrder) => {
+    const handleInputChange = (e, id) => {
         const userInput = e.target.value;
         setUserLetter(userInput);
+        const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
 
         if (userInput.length > 0) {
             focusNext(id, iterationOrder)
