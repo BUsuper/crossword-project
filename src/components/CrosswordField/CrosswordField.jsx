@@ -86,6 +86,8 @@ export function CrosswordField() {
         return iterationOrder;
     }
 
+    const iterationOrder = createIterationOrder(crossword, columns, rows, "down");
+
     // Crossword cells are only rendered in non-empty table cells
     return (
         <table id="CrosswordField" style={{width: `${columns * COMPONENT_SIZE}px`, height: `${rows * COMPONENT_SIZE}px`}}>
@@ -108,6 +110,7 @@ export function CrosswordField() {
                                             number={crossword[rowNumber][columnNumber][2]}
                                             correctAnswer={crossword[rowNumber][columnNumber][3]}
                                             isInSelectionList={cellsInSelectionList.includes(`CrosswordCell${rowNumber},${columnNumber}`)}
+                                            iterationOrder={iterationOrder}
                                             tabIndex={++tabCounter}
                                         >
                                         </CrosswordCell>
