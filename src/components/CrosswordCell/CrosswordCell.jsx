@@ -60,8 +60,8 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
         );
 
         while (true) {
-            if (currentIndex < (iterationOrder.length - 1)) {
-                const nextCellId = iterationOrder[currentIndex + 1].join(":");
+            if (currentIndex < (reverseIterationOrder.length - 1)) {
+                const nextCellId = reverseIterationOrder[currentIndex + 1].join(":");
                 const nextCell = document.getElementById(nextCellId);
                 
                 dispatch(setSelectedCell(nextCellId));
@@ -79,7 +79,15 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
         const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
 
         if (userInput.length > 0) {
-            focusNext(id, iterationOrder)
+            focusNext(id, iterationOrder);
+        }
+    }
+
+    const handleKeyDown = (e, id) => {
+        const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
+
+        if (e.key === "Backspace" && e.target.value === "") {
+            focusPrev(id, iterationOrder);
         }
     }
 
@@ -154,6 +162,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                         }
                     maxLength={1}
                     onChange={(e) => handleInputChange(e, inputId)}
+                    onKeyUp={(e) => handleKeyDown(e, inputId)}
                     onClick={() => handleClick(inputId, isCurrentlySelected)}
                     disabled={isChecking}
                     autoComplete="off"
