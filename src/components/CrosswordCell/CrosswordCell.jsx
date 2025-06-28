@@ -22,10 +22,11 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
 
     const isCurrentlySelected = selectedCell === inputId;
 
+
     const convertId = id => id.split(":").map(id => +id);
 
     // Focuses on the next cell in the iteration order and changes selectedCell accordingly
-    const focusNext = (id, iterationOrder) => {
+    const focusNext = (id, iterationOrder, skipFilled) => {
         let currentId = convertId(id);
         let currentIndex = iterationOrder.findIndex(
             cellId => cellId[0] === currentId[0] && cellId[1] === currentId[1]
@@ -36,14 +37,20 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                 const nextCellId = iterationOrder[currentIndex + 1].join(":");
                 const nextCell = document.getElementById(nextCellId);
                 
-                if (!nextCell.value) {
+                if (skipFilled) {
+                    if (!nextCell.value) {
+                        dispatch(setSelectedCell(nextCellId));
+                        nextCell.focus();
+                        break;
+                    } else {
+                        if (++currentIndex < (iterationOrder.length - 1)) {
+                            continue;
+                        }
+                    }
+                } else {
                     dispatch(setSelectedCell(nextCellId));
                     nextCell.focus();
                     break;
-                } else {
-                    if (++currentIndex < (iterationOrder.length - 1)) {
-                        continue;
-                    }
                 }
             } else {
                 break;
@@ -79,15 +86,24 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
         const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
 
         if (userInput.length > 0) {
-            focusNext(id, iterationOrder);
+            focusNext(id, iterationOrder, true);
+        }
+    }
+
+    const handleKeyUp = (e, id) => {
+        const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
+
+        if (e.key === "Backspace" && e.target.value === "") {
+            focusPrev(id, iterationOrder);
         }
     }
 
     const handleKeyDown = (e, id) => {
         const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
 
-        if (e.key === "Backspace" && e.target.value === "") {
-            focusPrev(id, iterationOrder);
+        if (e.key === "Tab") {
+            e.preventDefault();
+            focusNext(id, iterationOrder, false);
         }
     }
 
@@ -162,7 +178,8 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                         }
                     maxLength={1}
                     onChange={(e) => handleInputChange(e, inputId)}
-                    onKeyUp={(e) => handleKeyDown(e, inputId)}
+                    onKeyUp={(e) => handleKeyUp(e, inputId)}
+                    onKeyDown={(e) => handleKeyDown(e, inputId)}
                     onClick={() => handleClick(inputId, isCurrentlySelected)}
                     disabled={isChecking}
                     autoComplete="off"
