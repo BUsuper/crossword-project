@@ -7,7 +7,7 @@ import { selectIsVerticalSelection, selectSelectedCell } from "../../slices/sele
 import { setIsVerticalSelection, setSelectedCell } from "../../slices/selectedSlice";
 import { selectHorizontalIterationOrder, selectVerticalIterationOrder } from "../../slices/crosswordSelectors";
 
-export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelectionList, iterationOrder, tabIndex}) {
+export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelectionList, tabIndex}) {
     const isChecking = useSelector(selectIsChecking);
     const isShowingAnswers = useSelector(selectIsShowingAnswers);
     const selectedCell = useSelector(selectSelectedCell);
@@ -45,6 +45,28 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                         continue;
                     }
                 }
+            } else {
+                break;
+            }
+        }
+    }
+
+    const focusPrev = (id, iterationOrder) => {
+        const reverseIterationOrder = iterationOrder.slice().reverse();
+        
+        let currentId = convertId(id);
+        let currentIndex = reverseIterationOrder.findIndex(
+            cellId => cellId[0] === currentId[0] && cellId[1] === currentId[1]
+        );
+
+        while (true) {
+            if (currentIndex < (iterationOrder.length - 1)) {
+                const nextCellId = iterationOrder[currentIndex + 1].join(":");
+                const nextCell = document.getElementById(nextCellId);
+                
+                dispatch(setSelectedCell(nextCellId));
+                nextCell.focus();
+                break;
             } else {
                 break;
             }
@@ -131,7 +153,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                         `${isInSelectionList ? "inSelectedList" : ""}`
                         }
                     maxLength={1}
-                    onChange={(e) => handleInputChange(e, inputId, iterationOrder)}
+                    onChange={(e) => handleInputChange(e, inputId)}
                     onClick={() => handleClick(inputId, isCurrentlySelected)}
                     disabled={isChecking}
                     autoComplete="off"
