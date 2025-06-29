@@ -7,7 +7,7 @@ If an active cell is encountered, but there is no down arrow, it's not a part of
 vertically, so it doesn't belong to the list.
 When we run out of elements in the column, move right to the next column 
 The algorithm is the same for horizontal selection, the only change is direction */
-const createIterationOrder = (crossword, numberOfColumns, numberOfRows, direction) => {
+function createIterationOrder (crossword, numberOfColumns, numberOfRows, direction) {
     /* The direction determines whether we iterate over columns or rows (first dimention)
     iteration inside a column/row is in the second dimension */
     const firstDimentionLength = direction === "down" ? numberOfColumns : numberOfRows;
@@ -50,4 +50,82 @@ const createIterationOrder = (crossword, numberOfColumns, numberOfRows, directio
     return iterationOrder;
 }
 
-export { createIterationOrder };
+function selectCurrentWord (cellsArr, isVerticalSelection, selectedCellY, selectedCellX) {
+    const currentWord = [];
+    const consecutiveCoordinateIndex = isVerticalSelection ? 0 : 1;
+    let isSelectedCellFound = false;
+
+    let i = 0;
+    while (i < cellsArr.length) {
+        const currentCellId = shortenId(cellsArr[i]);
+        const currentIsSelected = (currentCellId[0] === +selectedCellY && currentCellId[1] === +selectedCellX);
+
+        // If the word isn't empty, check if the cell is consecutive
+        if (currentWord.length > 0) {
+            if (currentWord.at(-1)[consecutiveCoordinateIndex] === currentCellId[consecutiveCoordinateIndex] - 1) {
+                // If consecutive, check if it's current cell
+                if (currentIsSelected) {
+                    // If it's current, trigger the found flag and push it, then move on
+                    isSelectedCellFound = true;
+                    currentWord.push(currentCellId);
+                    i++;
+                    continue;
+                } else {
+                    // If it's not current, it's still consecutive, just push it
+                    currentWord.push(currentCellId);
+                    i++;
+                    continue;
+                }
+            // If the cell is not consecutive
+            } else {
+                // Check if it's current
+                if (currentIsSelected) {
+                    // If it's current, we start a new word (empty the array, trigger the found flag)
+                    currentWord.splice(0, currentWord.length);
+                    isSelectedCellFound = true;
+                    currentWord.push(currentCellId);
+                    i++;
+                    continue;
+                // If it's not current
+                } else {
+                    // Check if current cell is found
+                    if (isSelectedCellFound) {
+                        // If the selected cell is found, we've reached the end of the word before
+                        return currentWord;
+                    } else {
+                        // Not consecutive, not current word, so
+                        // Delete everything from the array and move on
+                        currentWord.splice(0, currentWord.length);
+                        currentWord.push(currentCellId);
+                        i++;
+                        continue;
+                    }
+                }
+            }
+        } else {
+            // If it's the first letter that goes into the word you can't check if it's consecutive
+            // But you still need to check if it's current
+            if (currentIsSelected) {
+                isSelectedCellFound = true;
+            }
+            currentWord.push(currentCellId);
+            i++;
+        }
+    }
+    return currentWord;
+}
+
+function shortenId (cellId) {
+    return cellId.slice(13).split(",").map(coordinate => +coordinate)
+}
+
+function filterDirection (cellId, isVerticalSelection, selectedCellY, selectedCellX) {
+    const shortenedId = shortenId(cellId);
+
+    if (isVerticalSelection) {
+        return shortenedId[1] === +selectedCellX;
+    }
+    return shortenedId[0] === +selectedCellY;
+}
+
+export { createIterationOrder, selectCurrentWord, shortenId, filterDirection };
