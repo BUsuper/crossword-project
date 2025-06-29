@@ -3,6 +3,7 @@ import { CrosswordCell } from "../../components";
 import { useSelector } from "react-redux";
 import { selectSelectedCell, selectIsVerticalSelection } from "../../slices/selectedSelectors";
 import { selectCrossword } from "../../slices/crosswordSelectors";
+import { selectCurrentWord, filterDirection } from "../../utils/utils";
 
 export function CrosswordField() {
     // Get height(rows) and width(columns) of the crossword object
@@ -18,23 +19,14 @@ export function CrosswordField() {
     // It allows to pass a correct tab index starting with 1 to them
     let tabCounter = 0;
 
-    const shortenId = cellId => cellId.slice(13).split(",").map(coordinate => +coordinate);
-
-    const filterDirection = cellId => {
-        const shortenedId = shortenId(cellId);
-
-        if (isVerticalSelection) {
-            return shortenedId[1] === +selectedCellX;
-        }
-        return shortenedId[0] === +selectedCellY;
-    }
-
     // A list of ids of all cells that should be highlighted as parts of selected row/column
     const cellsInSelectionList = Array.from(document
         .getElementsByClassName("CrosswordCell"))
         .map(cell => cell.id)
-        .filter(filterDirection);
-
+        .filter((cellId) => filterDirection(cellId, isVerticalSelection, selectedCellY, selectedCellX));
+    
+    const currentWord = selectCurrentWord(cellsInSelectionList, isVerticalSelection, selectedCellY, selectedCellX).map(id => id.join(","));
+    
     // Crossword cells are only rendered in non-empty table cells
     return (
         <table id="CrosswordField" style={{width: `${columns * COMPONENT_SIZE}px`, height: `${rows * COMPONENT_SIZE}px`}}>
@@ -56,7 +48,7 @@ export function CrosswordField() {
                                             direction={crossword[rowNumber][columnNumber][1]}
                                             number={crossword[rowNumber][columnNumber][2]}
                                             correctAnswer={crossword[rowNumber][columnNumber][3]}
-                                            isInSelectionList={cellsInSelectionList.includes(`CrosswordCell${rowNumber},${columnNumber}`)}
+                                            isInSelectionList={currentWord.includes(`${rowNumber},${columnNumber}`)}
                                             tabIndex={++tabCounter}
                                         >
                                         </CrosswordCell>
