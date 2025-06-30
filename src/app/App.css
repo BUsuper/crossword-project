@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #f7f5f0;
 
   /* disallow selection */
   -webkit-user-select: none; /* Safari */

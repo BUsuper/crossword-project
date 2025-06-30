@@ -4,7 +4,7 @@ const selectedSlice = createSlice({
     name: "selected",
 
     initialState: {
-        isVerticalSelection: true,
+        isVerticalSelection: false,
         selectedCell: "",
     },
 

@@ -5,12 +5,15 @@ import { useEffect, useState } from "react";
 import { setHasErrors } from "../../slices/statusesSlice";
 import { selectIsVerticalSelection, selectSelectedCell } from "../../slices/selectedSelectors";
 import { setIsVerticalSelection, setSelectedCell } from "../../slices/selectedSlice";
+import { selectHorizontalIterationOrder, selectVerticalIterationOrder } from "../../slices/crosswordSelectors";
 
 export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelectionList, tabIndex}) {
     const isChecking = useSelector(selectIsChecking);
     const isShowingAnswers = useSelector(selectIsShowingAnswers);
     const selectedCell = useSelector(selectSelectedCell);
     const isVerticalSelection = useSelector(selectIsVerticalSelection);
+    const verticalIterationOrder = useSelector(selectVerticalIterationOrder);
+    const horizontalIterationOrder = useSelector(selectHorizontalIterationOrder);
     const [userLetter, setUserLetter] = useState("");
 
     const dispatch = useDispatch();
@@ -19,7 +22,92 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
 
     const isCurrentlySelected = selectedCell === inputId;
 
-    const handleInputChange = (e, nextIndex) => {
+
+    const convertId = id => id.split(":").map(id => +id);
+
+    // Focuses on the next cell in the iteration order and changes selectedCell accordingly
+    const focusNext = (id, iterationOrder, skipFilled) => {
+        let currentId = convertId(id);
+        let currentIndex = iterationOrder.findIndex(
+            cellId => cellId[0] === currentId[0] && cellId[1] === currentId[1]
+        );
+
+        while (true) {
+            if (currentIndex < (iterationOrder.length - 1)) {
+                const nextCellId = iterationOrder[currentIndex + 1].join(":");
+                const nextCell = document.getElementById(nextCellId);
+                
+                if (skipFilled) {
+                    if (!nextCell.value) {
+                        dispatch(setSelectedCell(nextCellId));
+                        nextCell.focus();
+                        break;
+                    } else {
+                        if (++currentIndex < (iterationOrder.length - 1)) {
+                            continue;
+                        }
+                    }
+                } else {
+                    dispatch(setSelectedCell(nextCellId));
+                    nextCell.focus();
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+
+    const focusPrev = (id, iterationOrder) => {
+        const reverseIterationOrder = iterationOrder.slice().reverse();
+        
+        let currentId = convertId(id);
+        let currentIndex = reverseIterationOrder.findIndex(
+            cellId => cellId[0] === currentId[0] && cellId[1] === currentId[1]
+        );
+
+        while (true) {
+            if (currentIndex < (reverseIterationOrder.length - 1)) {
+                const nextCellId = reverseIterationOrder[currentIndex + 1].join(":");
+                const nextCell = document.getElementById(nextCellId);
+                
+                dispatch(setSelectedCell(nextCellId));
+                nextCell.focus();
+                break;
+            } else {
+                break;
+            }
+        }
+    }
+
+    const handleInputChange = (e, id) => {
+        const userInput = e.target.value;
+        setUserLetter(userInput);
+        const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
+
+        if (userInput.length > 0) {
+            focusNext(id, iterationOrder, true);
+        }
+    }
+
+    const handleKeyUp = (e, id) => {
+        const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
+
+        if (e.key === "Backspace" && e.target.value === "") {
+            focusPrev(id, iterationOrder);
+        }
+    }
+
+    const handleKeyDown = (e, id) => {
+        const iterationOrder = isVerticalSelection ? verticalIterationOrder : horizontalIterationOrder;
+
+        if (e.key === "Tab") {
+            e.preventDefault();
+            focusNext(id, iterationOrder, false);
+        }
+    }
+
+    /* const handleInputChange = (e, nextIndex) => {
         const userInput = e.target.value;
         // Gets an iterable object with all Letter Containers
         const letterContainersList = document.getElementsByClassName("letterContainer");
@@ -36,6 +124,7 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
 
         // TODO: add moving to the previous cell if it exists and backspace is pressed in an empty cell
     }
+        */
 
     // Make selection direction change if the same cell is clicked twice
     const handleClick = (currentCellId, isCurrentlySelected) => {
@@ -88,7 +177,9 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                         `${isInSelectionList ? "inSelectedList" : ""}`
                         }
                     maxLength={1}
-                    onChange={(e) => handleInputChange(e, tabIndex)}
+                    onChange={(e) => handleInputChange(e, inputId)}
+                    onKeyUp={(e) => handleKeyUp(e, inputId)}
+                    onKeyDown={(e) => handleKeyDown(e, inputId)}
                     onClick={() => handleClick(inputId, isCurrentlySelected)}
                     disabled={isChecking}
                     autoComplete="off"
