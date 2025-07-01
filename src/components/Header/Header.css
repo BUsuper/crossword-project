@@ -1,0 +1,7 @@
+header {
+    height: 10vh;
+    width: 100%;
+    background-color: brown;
+    position: sticky;
+    top: 0;
+}
