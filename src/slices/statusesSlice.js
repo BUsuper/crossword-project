@@ -8,6 +8,7 @@ const statusesSlice = createSlice({
         isFinished: false,
         hasErrors: false,
         isEndgameModalOpen: false,
+        time: {},
     },
 
     reducers: {
@@ -30,6 +31,15 @@ const statusesSlice = createSlice({
         setIsShowingAnswers: (state, action) => {
             state.isShowingAnswers = action.payload;
         },
+
+        setTime: (state, action) => {
+            const seconds = action.payload % 60;
+            const minutes = (action.payload - seconds) / 60;
+            state.time = {
+                minutes,
+                seconds,
+            };
+        }
     }
 });
 
@@ -37,7 +47,8 @@ export const { setIsChecking,
                setIsFinished, 
                setHasErrors, 
                setIsEndgameModalOpen, 
-               setIsShowingAnswers
+               setIsShowingAnswers,
+               setTime,
             } = statusesSlice.actions;
 
 export default statusesSlice.reducer;
