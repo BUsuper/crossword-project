@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import "./Timer.css"
 import { useSelector } from "react-redux";
+import stopIndicator from "../../assets/stop.svg"
 import { selectIsFinished } from "../../slices/statusesSelectors";
 
 export function Timer() {
@@ -20,5 +22,9 @@ export function Timer() {
         return () => clearInterval(timer);
     }, [isFinished]);
 
-    return <p>{`${(elapsedTime - elapsedTime % 60) / 60}:${String(elapsedTime % 60).padStart(2, "0")}`}</p>
+    return <div>
+        <img src={stopIndicator} id="stopIndicator" style={{visibility: isFinished ? "visible" : "hidden"}}></img>
+        <p>{`${(elapsedTime - elapsedTime % 60) / 60}:${String(elapsedTime % 60).padStart(2, "0")}`}</p>
+    </div>
+    
 }
