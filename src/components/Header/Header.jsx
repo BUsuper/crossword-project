@@ -1,7 +1,9 @@
+import { Timer } from "../Timer/Timer";
+
 export function Header() {
     return (
         <header>
-            <p>Bzzz</p>
+            <Timer></Timer>
         </header>
     );
 }
