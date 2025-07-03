@@ -107,25 +107,6 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
         }
     }
 
-    /* const handleInputChange = (e, nextIndex) => {
-        const userInput = e.target.value;
-        // Gets an iterable object with all Letter Containers
-        const letterContainersList = document.getElementsByClassName("letterContainer");
-
-        setUserLetter(userInput);
-
-        // Checks if the next element exists in the list of Letter Containers
-        // by comparing its length and the next index
-        // Checks if there is new input so the focus doesn't jump when a letter is deleted
-        if (userInput.length > 0 && letterContainersList.length > nextIndex) {
-            dispatch(setSelectedCell(letterContainersList[nextIndex].id));
-            letterContainersList[nextIndex].focus();
-        }
-
-        // TODO: add moving to the previous cell if it exists and backspace is pressed in an empty cell
-    }
-        */
-
     // Make selection direction change if the same cell is clicked twice
     const handleClick = (currentCellId, isCurrentlySelected) => {
         if (isCurrentlySelected) {
