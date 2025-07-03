@@ -1,24 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import crossword from "../assets/crosswords";
+import crosswords from "../assets/crosswords";
 import { createIterationOrder } from "../utils/utils";
+
+const selectedCrossword = "3.07.2025";
 
 const crosswordSlice = createSlice({
     name: "crossword",
 
     initialState: {
-        crossword: crossword,
+        crossword: crosswords[selectedCrossword],
 
         verticalIterationOrder: createIterationOrder(
-            crossword,
-            Object.keys(crossword[0]).length,
-            Object.keys(crossword).length,
+            crosswords[selectedCrossword],
+            Object.keys(crosswords[selectedCrossword][0]).length,
+            Object.keys(crosswords[selectedCrossword]).length,
             "down"
         ),
 
         horizontalIterationOrder: createIterationOrder(
-            crossword,
-            Object.keys(crossword[0]).length,
-            Object.keys(crossword).length,
+            crosswords[selectedCrossword],
+            Object.keys(crosswords[selectedCrossword][0]).length,
+            Object.keys(crosswords[selectedCrossword]).length,
             "right"
         ),
     },
