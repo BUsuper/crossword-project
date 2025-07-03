@@ -1,6 +1,9 @@
-import crossword from "../../assets/crosswords"
+import { useSelector } from "react-redux"
+import { selectCrossword } from "../../slices/crosswordSelectors"
 
 export function QuestionsBlock({direction}) {
+    const crossword = useSelector(selectCrossword);
+
     return <div>
         <h1>{direction === "right" ? "Across" : "Down"}</h1>
         <div>
