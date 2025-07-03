@@ -1,7 +1,7 @@
 import "./CrosswordCell.css";
 import useCrosswordCell from "./useCrosswordCell";
 
-export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelectionList, tabIndex}) {
+export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelectionList}) {
     const {
         isChecking,
         isShowingAnswers,
@@ -15,8 +15,6 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
         handleKeyUp,
     } = useCrosswordCell(y, x, correctAnswer);
 
-    // tabIndex starts at 1, so it can be used as next index in the list of Crossword Cells
-    // that is 0-indexed
     return (
         <div 
             id={`CrosswordCell${y},${x}`}
@@ -51,7 +49,6 @@ export function CrosswordCell({x, y, correctAnswer, number, direction, isInSelec
                     onClick={() => handleClick(inputId, isCurrentlySelected)}
                     disabled={isChecking}
                     autoComplete="off"
-                    tabIndex={tabIndex}
                     value={ isShowingAnswers ? correctAnswer : userLetter}
                 >
                 </input>
