@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./EndgameModal.css";
 import closeModalLogo from "../../assets/close.svg"
-import { selectHasErrors } from "../../slices/statusesSelectors";
+import { selectHasErrors, selectTime } from "../../slices/statusesSelectors";
 import { setIsEndgameModalOpen, setIsShowingAnswers } from "../../slices/statusesSlice";
 
 export function EndgameModal() {
     const hasErrors = useSelector(selectHasErrors);
+    const { minutes, seconds } = useSelector(selectTime);
 
     const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ export function EndgameModal() {
             <div className="modalResultsRow">
                 { hasErrors ? 
                   "You can see the correct answers by clicking the button below" :
-                  "Congratulations! You've finished the crossword in 999 seconds"
+                  `Congratulations! You've finished the crossword in ${minutes} ${minutes === 1 ? "minute" : "minutes"} ${seconds} ${seconds === 1 ? "second" : "seconds"}`
                 }
             </div>
             <div className="modalBottomRow">
