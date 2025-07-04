@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import crosswords from "../assets/crosswords";
 import { createIterationOrder } from "../utils/utils";
 
-const selectedCrossword = "3.07.2025";
+const selectedCrossword = "30.05.2025";
 
 const crosswordSlice = createSlice({
     name: "crossword",
@@ -27,11 +27,29 @@ const crosswordSlice = createSlice({
 
     reducers: {
         setCrossword: (state, action) => {
-            state.crossword = action.payload;
+            state.crossword = crosswords[action.payload];
+        },
+
+        setVerticalIterationOrder: (state, action) => {
+            state.verticalIterationOrder = createIterationOrder(
+                crosswords[action.payload],
+                Object.keys(crosswords[action.payload][0]).length,
+                Object.keys(crosswords[action.payload]).length,
+                "down"
+            );
+        },
+
+        setHorizontalIterationOrder: (state, action) => {
+            state.horizontalIterationOrder = createIterationOrder(
+                crosswords[action.payload],
+                Object.keys(crosswords[action.payload][0]).length,
+                Object.keys(crosswords[action.payload]).length,
+                "right"
+            );
         }
-    }
+    },
 });
 
-export const { setCrossword } = crosswordSlice.actions;
+export const { setCrossword, setVerticalIterationOrder, setHorizontalIterationOrder } = crosswordSlice.actions;
 
 export default crosswordSlice.reducer;
