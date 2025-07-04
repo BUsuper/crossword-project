@@ -1,7 +1,7 @@
 import { QuestionsBlock } from "../../components"
 
 export function QuestionsSection() {
-    return <div>
+    return <div id="QuestionsSection">
         <QuestionsBlock direction="right"></QuestionsBlock>
         <QuestionsBlock direction="down"></QuestionsBlock>
     </div>

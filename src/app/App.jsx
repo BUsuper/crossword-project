@@ -9,9 +9,10 @@ function App() {
   return (
     <>
       <Header></Header>
-      <CrosswordField></CrosswordField>
-      
-      <QuestionsSection></QuestionsSection>
+      <div id="crosswordWrapprer">
+        <CrosswordField></CrosswordField>
+        <QuestionsSection></QuestionsSection>
+      </div>
       {isEndgameModalOpen && <EndgameModal></EndgameModal>}
     </>
 )}

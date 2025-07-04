@@ -1,0 +1,4 @@
+#QuestionsSection {
+    /* Grow to take the remaining space */
+    flex: 1;
+}
