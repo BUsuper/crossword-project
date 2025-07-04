@@ -6,3 +6,4 @@ export { ButtonsSection } from "./ButtonsSection/ButtonsSection";
 export { EndgameModal } from "./EndgameModal/EndgameModal";
 export { Header } from "./Header/Header";
 export { Timer } from "./Timer/Timer";
+export { CrosswordSelection } from "./CrosswordSelection/CrosswordSelection";
