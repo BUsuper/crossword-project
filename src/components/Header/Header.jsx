@@ -1,9 +1,9 @@
-import { CrosswordSelection } from "../CrosswordSelection/CrosswordSelection";
-import { Timer } from "../Timer/Timer";
+import { ButtonsSection, Timer, CrosswordSelection } from "../../components";
 
 export function Header() {
     return (
         <header>
+            <ButtonsSection></ButtonsSection>
             <Timer></Timer>
             <CrosswordSelection></CrosswordSelection>
         </header>
