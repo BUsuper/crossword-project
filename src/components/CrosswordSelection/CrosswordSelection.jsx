@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import crosswords from "../../assets/crosswords";
 import { setSelectedCrossword } from "../../slices/selectedSlice";
+import { setCrossword, setHorizontalIterationOrder, setVerticalIterationOrder } from "../../slices/crosswordSlice";
 
 export function CrosswordSelection() {
     const crosswordNames = Object.keys(crosswords);
@@ -13,6 +14,9 @@ export function CrosswordSelection() {
         // target is the whole form, crosswords is the name of select in it
         const selectedCrossword = e.target.elements.crosswords.value;
         dispatch(setSelectedCrossword(selectedCrossword));
+        dispatch(setCrossword(selectedCrossword))
+        dispatch(setVerticalIterationOrder(selectedCrossword));
+        dispatch(setHorizontalIterationOrder(selectedCrossword));
     }
 
     return (
