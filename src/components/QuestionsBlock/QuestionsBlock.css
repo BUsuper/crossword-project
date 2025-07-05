@@ -7,3 +7,9 @@
     margin-top: 5px;
     text-align: left;
 }
+
+@media (max-width: 600px) {
+    .question {
+        margin-left: 0;
+    }
+}

@@ -1,7 +1,12 @@
 header {
-    height: 10vh;
+    height: 40px;
     width: 100%;
-    background-color: brown;
+    margin-bottom: 10px;
+
     position: sticky;
     top: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

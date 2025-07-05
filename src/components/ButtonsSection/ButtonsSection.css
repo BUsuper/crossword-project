@@ -1,0 +1,10 @@
+#ButtonsSection {
+    width: 180px;
+    margin: auto 10px;
+    display: flex;
+    justify-content: center;
+}
+
+input[type="button"] {
+    margin: auto 2.5px;
+}

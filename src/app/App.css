@@ -4,7 +4,6 @@
   margin: 0 auto;
   /*padding: 2rem;*/
   text-align: center;
-  background-color: #f7f5f0;
 
   /* disallow selection */
   -webkit-user-select: none; /* Safari */
@@ -13,6 +12,11 @@
 }
 
 #crosswordWrapprer {
-  width: 100%;
   display: flex;
+}
+
+@media (max-width: 600px) {
+    #crosswordWrapprer {
+        flex-direction: column; /* Stack components vertically */
+    }
 }

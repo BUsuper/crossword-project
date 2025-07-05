@@ -1,0 +1,9 @@
+#CrosswordSelectionForm {
+    margin: auto 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#CrosswordsSelection {
+    margin-right: 5px;
+}

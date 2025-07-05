@@ -1,3 +1,4 @@
+import "./Header.css"
 import { ButtonsSection, Timer, CrosswordSelection } from "../../components";
 
 export function Header() {

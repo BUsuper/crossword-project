@@ -1,3 +1,4 @@
+import "./CrosswordSelection.css";
 import { useDispatch, useSelector } from "react-redux";
 import crosswords from "../../assets/crosswords";
 import { setSelectedCrossword } from "../../slices/selectedSlice";
@@ -22,7 +23,7 @@ export function CrosswordSelection() {
     }
 
     return (
-        <form name="CrosswordSelectionForm" onSubmit={handleSubmit}>
+        <form name="CrosswordSelectionForm" id="CrosswordSelectionForm" onSubmit={handleSubmit}>
             <select name="crosswords" id="CrosswordsSelection" disabled={isFinished}>
                 {crosswordNames.map(name => 
                     <option value={name} key={name}>{name}</option>

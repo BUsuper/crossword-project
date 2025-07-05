@@ -1,3 +1,4 @@
+import "./ButtonsSection.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setHasErrors, setIsChecking, setIsEndgameModalOpen, setIsFinished } from "../../slices/statusesSlice";
 import { selectIsChecking, selectIsFinished } from "../../slices/statusesSelectors";
@@ -20,7 +21,7 @@ export function ButtonsSection() {
     }
 
     // It says "Change answers" because editing is disabled (in CrosswordCell) in checking mode
-    return <div>
+    return <div id="ButtonsSection">
         <input
             type="button" 
             onClick={toggleCheck} 

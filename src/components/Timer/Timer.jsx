@@ -26,9 +26,9 @@ export function Timer() {
         return () => clearInterval(timer);
     }, [isFinished]);
 
-    return <div>
+    return <div id="Timer">
         <img src={stopIndicator} id="stopIndicator" style={{visibility: isFinished ? "visible" : "hidden"}}></img>
-        <p>{`${(elapsedTime - elapsedTime % 60) / 60}:${String(elapsedTime % 60).padStart(2, "0")}`}</p>
+        <p id="clock">{`${(elapsedTime - elapsedTime % 60) / 60}:${String(elapsedTime % 60).padStart(2, "0")}`}</p>
     </div>
     
 }
