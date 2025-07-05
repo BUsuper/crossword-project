@@ -2,3 +2,8 @@
     /* Grow to take the remaining space */
     flex: 1;
 }
+
+hr {
+    margin: 20px auto 10px;
+    width: 80%;
+}
