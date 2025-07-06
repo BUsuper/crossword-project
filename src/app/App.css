@@ -15,8 +15,8 @@
   display: flex;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     #crosswordWrapprer {
-        flex-direction: column; /* Stack components vertically */
+      flex-direction: column; /* Stack components vertically */
     }
 }
