@@ -12,20 +12,27 @@ export function EndgameModal() {
 
     return (
         <div id="EndgameModal">
-            <div className="modalUpperRow">
+            <div id="modalUpperRow">
                 <img 
                     id="closeEndgameModalButton"
                     src={closeModalLogo} 
                     onClick={() => dispatch(setIsEndgameModalOpen(false))}>
                 </img>
             </div>
-            <div className="modalResultsRow">
+            <div id="modalResultsRow">
                 { hasErrors ? 
-                  "You can see the correct answers by clicking the button below" :
-                  `Congratulations! You've finished the crossword in ${minutes} ${minutes === 1 ? "minute" : "minutes"} ${seconds} ${seconds === 1 ? "second" : "seconds"}`
+                    <div id="modalMessage">  
+                        <h1>Oh no!</h1>
+                        <p>There are errors in your answers.</p>                  
+                        <p>You can see the correct answers by clicking the button below.</p>
+                    </div> :
+                    <div id="modalMessage">
+                        <h1>Congratulations!</h1>
+                        <p>{`You have finished the crossword in ${minutes} ${minutes === 1 ? "minute" : "minutes"} ${seconds} ${seconds === 1 ? "second" : "seconds"}`}</p>
+                    </div>
                 }
             </div>
-            <div className="modalBottomRow">
+            <div id="modalBottomRow">
                 { hasErrors ? <input type="button" value="Show answers" onClick={() => dispatch(setIsShowingAnswers(true))}></input> : "" }
             </div>
         </div>
