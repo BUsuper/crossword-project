@@ -1,6 +1,9 @@
 #QuestionsSection {
     /* Grow to take the remaining space */
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 hr {
