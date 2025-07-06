@@ -17,6 +17,7 @@
 #crosswordWrapprer {
   flex: 1;
   display: flex;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 800px) {
