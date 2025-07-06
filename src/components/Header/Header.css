@@ -10,3 +10,11 @@ header {
     justify-content: space-between;
     align-items: center;
 }
+
+@media (max-width: 400px) {
+    header {
+        height: 110px;
+        flex-direction: column;
+    }
+
+}

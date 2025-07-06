@@ -1,6 +1,6 @@
 #ButtonsSection {
-    width: 180px;
-    margin: auto 10px;
+    width: 20%;
+    margin: 10px;
     display: flex;
     justify-content: center;
 }
