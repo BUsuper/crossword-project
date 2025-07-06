@@ -3,6 +3,7 @@ import { selectSelectedCell, selectIsVerticalSelection } from "../../slices/sele
 import { selectCrossword } from "../../slices/crosswordSelectors";
 import { selectCurrentWord, filterDirection } from "../../utils/utils";
 import { setIsVerticalSelection } from "../../slices/selectedSlice";
+import { useEffect } from "react";
 
 export default function useCrosswordField() {
     // Get height(rows) and width(columns) of the crossword object
@@ -22,9 +23,12 @@ export default function useCrosswordField() {
     const currentWord = selectCurrentWord(cellsInSelectionList, isVerticalSelection, selectedCellY, selectedCellX).map(id => id.join(","));
 
     // This prevents selection when there is no actual word, just a single cell surrounded by emtpy cells
-    if (currentWord.length < 2) {
-        dispatch(setIsVerticalSelection(!isVerticalSelection));
-    }
+    // Need useEffect to avoid execution while CrosswordField is rendering
+    useEffect(() => {
+        if (currentWord.length < 2) {
+            dispatch(setIsVerticalSelection(!isVerticalSelection));
+        }
+    }, [currentWord, isVerticalSelection, dispatch])
 
     return {
         crossword,
