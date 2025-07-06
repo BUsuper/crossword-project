@@ -6,6 +6,7 @@ const selectedSlice = createSlice({
     initialState: {
         isVerticalSelection: false,
         selectedCell: "",
+        selectedCrossword: "",
     },
 
     reducers: {
@@ -15,10 +16,14 @@ const selectedSlice = createSlice({
 
         setSelectedCell: (state, action) => {
             state.selectedCell = action.payload;
-        }
+        },
+
+        setSelectedCrossword: (state, action) => {
+            state.selectedCrossword = action.payload;
+        },
     }
 });
 
-export const { setIsVerticalSelection, setSelectedCell } = selectedSlice.actions;
+export const { setIsVerticalSelection, setSelectedCell, setSelectedCrossword } = selectedSlice.actions;
 
 export default selectedSlice.reducer;

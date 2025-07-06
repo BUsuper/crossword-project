@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { ButtonsSection, CrosswordField, EndgameModal, QuestionsSection } from "../components";
+import { CrosswordField, EndgameModal, Header, QuestionsSection } from "../components";
 import "./App.css";
 import { selectIsEndgameModalOpen } from "../slices/statusesSelectors";
 
@@ -8,9 +8,11 @@ function App() {
 
   return (
     <>
-      <CrosswordField></CrosswordField>
-      <ButtonsSection></ButtonsSection>
-      <QuestionsSection></QuestionsSection>
+      <Header></Header>
+      <div id="crosswordWrapprer">
+        <CrosswordField></CrosswordField>
+        <QuestionsSection></QuestionsSection>
+      </div>
       {isEndgameModalOpen && <EndgameModal></EndgameModal>}
     </>
 )}

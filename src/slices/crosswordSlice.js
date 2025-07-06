@@ -1,35 +1,55 @@
 import { createSlice } from "@reduxjs/toolkit";
-import crossword from "../assets/crosswords";
+import crosswords from "../assets/crosswords";
 import { createIterationOrder } from "../utils/utils";
+
+const selectedCrossword = "30.05.2025";
 
 const crosswordSlice = createSlice({
     name: "crossword",
 
     initialState: {
-        crossword: crossword,
+        crossword: crosswords[selectedCrossword],
 
         verticalIterationOrder: createIterationOrder(
-            crossword,
-            Object.keys(crossword[0]).length,
-            Object.keys(crossword).length,
+            crosswords[selectedCrossword],
+            Object.keys(crosswords[selectedCrossword][0]).length,
+            Object.keys(crosswords[selectedCrossword]).length,
             "down"
         ),
 
         horizontalIterationOrder: createIterationOrder(
-            crossword,
-            Object.keys(crossword[0]).length,
-            Object.keys(crossword).length,
+            crosswords[selectedCrossword],
+            Object.keys(crosswords[selectedCrossword][0]).length,
+            Object.keys(crosswords[selectedCrossword]).length,
             "right"
         ),
     },
 
     reducers: {
         setCrossword: (state, action) => {
-            state.crossword = action.payload;
+            state.crossword = crosswords[action.payload];
+        },
+
+        setVerticalIterationOrder: (state, action) => {
+            state.verticalIterationOrder = createIterationOrder(
+                crosswords[action.payload],
+                Object.keys(crosswords[action.payload][0]).length,
+                Object.keys(crosswords[action.payload]).length,
+                "down"
+            );
+        },
+
+        setHorizontalIterationOrder: (state, action) => {
+            state.horizontalIterationOrder = createIterationOrder(
+                crosswords[action.payload],
+                Object.keys(crosswords[action.payload][0]).length,
+                Object.keys(crosswords[action.payload]).length,
+                "right"
+            );
         }
-    }
+    },
 });
 
-export const { setCrossword } = crosswordSlice.actions;
+export const { setCrossword, setVerticalIterationOrder, setHorizontalIterationOrder } = crosswordSlice.actions;
 
 export default crosswordSlice.reducer;
