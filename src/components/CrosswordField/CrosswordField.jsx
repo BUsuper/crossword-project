@@ -3,20 +3,15 @@ import { CrosswordCell } from "../../components";
 import useCrosswordField from "./useCrosswordField";
 
 export function CrosswordField() {
-    // This is used to determine the size of the field in pixels
-    const COMPONENT_SIZE = 50;
-
     const {
         crossword,
-        rows,
-        columns,
         currentWord,
     } = useCrosswordField();
     
     // Crossword cells are only rendered in non-empty table cells
     return (
         <div id="CrosswordField">
-            <table style={{width: `${columns * COMPONENT_SIZE}px`, height: `${rows * COMPONENT_SIZE}px`}}>
+            <table>
                 <tbody>
                 {
                     crossword.map((row, rowNumber) => (

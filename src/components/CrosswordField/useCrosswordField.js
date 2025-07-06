@@ -6,8 +6,6 @@ import { selectCurrentWord, filterDirection } from "../../utils/utils";
 export default function useCrosswordField() {
     // Get height(rows) and width(columns) of the crossword object
     const crossword = useSelector(selectCrossword);
-    const columns = Object.keys(crossword[0]).length;
-    const rows = Object.keys(crossword).length;
 
     const [ selectedCellY, selectedCellX ] = useSelector(selectSelectedCell).split(":");
     const isVerticalSelection = useSelector(selectIsVerticalSelection);
@@ -22,8 +20,6 @@ export default function useCrosswordField() {
 
     return {
         crossword,
-        columns,
-        rows,
         currentWord,
     };
 }
