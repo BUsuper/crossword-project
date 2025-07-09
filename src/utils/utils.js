@@ -49,7 +49,6 @@ function createIterationOrder(
           isArrowFound = true;
           continue;
         }
-        continue;
       }
     }
   }
