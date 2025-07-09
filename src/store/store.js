@@ -4,11 +4,11 @@ import selectedReducer from "../slices/selectedSlice";
 import crosswordReducer from "../slices/crosswordSlice";
 
 const store = configureStore({
-    reducer: {
-        statuses: statucesReducer,
-        selected: selectedReducer,
-        crossword: crosswordReducer,
-    },
-})
+  reducer: {
+    statuses: statucesReducer,
+    selected: selectedReducer,
+    crossword: crosswordReducer,
+  },
+});
 
 export default store;
